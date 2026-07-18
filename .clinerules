@@ -1,0 +1,74 @@
+# Project Rules for Cline
+
+Follow every rule below on every task. These exist to compensate for the failure modes of smaller models — skipping steps is what causes broken code, not slowness.
+
+---
+
+## 1. Before writing any code
+
+- Restate the task in your own words in one sentence before starting, to confirm you understood it.
+- List every file you will create or touch. Do not touch files outside this list without saying why.
+- If the task is ambiguous or could be done multiple ways, pick the simplest interpretation and state the assumption — don't ask, don't overbuild.
+- Break the task into small steps (aim for steps you could each finish in under ~20 lines of change). Work through them one at a time, not all at once.
+
+## 2. Structure and scope
+
+- Keep HTML, CSS, and JS in ONE file unless told otherwise. Fewer files = fewer places for things to get out of sync.
+- <style> goes in <head>. <script> goes immediately before </body> (never in <head> without defer).
+- Do not add features, libraries, error handling, or abstractions that weren't asked for. Extra surface area is extra chances to break something.
+- Prefer plain vanilla HTML/CSS/JS. Only reach for a framework or library if explicitly requested.
+- Do not refactor or "clean up" unrelated code while doing a specific task, unless asked.
+
+## 3. Naming consistency (the #1 cause of broken sites)
+
+- Before writing JS, list every element ID/class the JS will reference.
+- After writing the HTML, check each one exists with identical spelling and case. Do this explicitly — don't assume.
+- Never reference an element in JS that wasn't just written in the HTML in this same response.
+- Use consistent naming conventions throughout (e.g. don't mix checkboxItem and checkbox-item).
+
+## 4. Every interactive element must actually work
+
+- Any button, checkbox, tab, link, or form must have a real event listener attached to a real function — not just a function defined and left unattached.
+- After writing the JS, trace each interactive HTML element to the specific line of JS that gives it behavior. If you can't point to that line, it's not done.
+- Test state changes mentally: what does the DOM look like before the click, and after? If nothing would visibly change, the logic is wrong.
+
+## 5. Defensive basics (cheap insurance against silent failures)
+
+- Guard DOM lookups where it matters: if (el) { ... } before using an element, so a mismatch throws a clear console error instead of failing silently.
+- Never assume getElementById/querySelector succeeded.
+- Avoid !important, inline styles, and global variables unless there's a specific reason — they hide bugs and cause conflicts as the file grows.
+
+## 6. Self-check before ending any response
+
+Run through this list explicitly before finishing — don't skip it because the code "looks right":
+
+- [ ] Every ID/class in JS matches the HTML exactly
+- [ ] Every clickable/checkable/interactive element has a listener actually wired to it
+- [ ] Script tag is at the end of <body> or uses defer
+- [ ] No placeholder or unused functions left in the code
+- [ ] No console errors would occur on page load (trace through it mentally)
+- [ ] The feature actually does what was asked, not just something adjacent to it
+
+## 7. When fixing a bug
+
+- Ask for the exact browser console error or the specific symptom before guessing at a fix. Don't rewrite broadly to "be safe."
+- Change only what's needed to fix the reported issue.
+- After the fix, re-run the Section 6 self-check.
+- If the same type of bug happens twice in a session, say so explicitly and slow down — re-verify the whole file rather than patching again.
+
+## 8. Incremental delivery
+
+- For anything beyond a single simple page, build and verify one section/feature at a time rather than generating the whole thing in one pass.
+- After each meaningful chunk, pause and re-check Section 6 before moving to the next chunk.
+- If a task feels like it's getting complex (more than ~3-4 interactive features, or multiple pages), say so and suggest breaking it into separate requests.
+
+## 9. Communication
+
+- If something in the request can't be done simply, say so plainly instead of producing a half-working version.
+- Don't claim something is "done" or "should work now" without having gone through the Section 6 checklist first.
+- If you're not confident in a piece of logic, flag it rather than presenting it as certain.
+
+## 10. Know the limits
+
+- This project intentionally avoids complexity (no build tools, no frameworks, no backend) specifically to stay within what a smaller model can reliably verify by hand.
+- If a request would require holding a lot of interacting state or logic in your head at once, that's a signal to simplify the approach, not to push through.
