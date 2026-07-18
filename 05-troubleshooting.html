@@ -36,9 +36,6 @@
 
   h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
   h1:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
-  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
-  p, li { color: var(--text); }
 
   nav {
     background: var(--surface);
@@ -133,9 +130,38 @@
   a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
 
   .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
+
+  .mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--accent);
+    font-size: 1.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .mobile-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(137, 180, 250, 0.3); }
+
+  @media (max-width: 768px) {
+    nav a:not(.mobile-toggle) { display: none; }
+    .mobile-toggle { display: block; }
+  }
+
+  body.nav-open .nav-links { display: flex !important; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg); padding-top: 2rem; overflow-y: auto; }
+  body.nav-open nav a:not(.mobile-toggle) { display: block; animation: fadeIn 0.3s ease; margin-bottom: 0.5rem; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
+
+<div class="mobile-toggle" onclick="toggleNav()">&#9776;</div>
 
 <h1><span style="font-size:1.5em;">&#9888;</span> Troubleshooting & Tips</h1>
 <p>Common issues and quick fixes to keep your workflow running smoothly.</p>
@@ -166,33 +192,36 @@
     <li>Make sure your Cloudflare tunnel service URL uses that actual port, not 80.</li>
   </ul>
 
-  <h2><span style="font-size:1.3em;">&#9888;</span> VS Code Source Control Panel Looks Empty</h2>
-  <p>If the panel shows nothing after you've made changes:</p>
+  <h2><span style="font-size:1.3em;">&#9888;</span> App Crashes on Refresh</h2>
+  <p>This means the app isn't serving static files correctly:</p>
   <ol style="margin-top:0.5rem; padding-left:1.2rem;">
-    <li>Make sure your files are actually saved.</li>
-    <li>The Source Control icon in the sidebar should show changed files if there's anything to commit.</li>
+    <li>Check if your app has a proper index.html at its root directory.</li>
+    <li>Make sure you're running a simple HTTP server or using Coolify's built-in static file serving.</li>
   </ol>
 
-  <h2><span style="font-size:1.3em;">&#9888;</span> Your Site Isn't Loading After Deploy</h2>
-  <p>A few things to check:</p>
+  <h2><span style="font-size:1.3em;">&#9888;</span> Deploy Doesn't Update After GitHub Push</h2>
+  <p>This happens when the deploy hasn't been triggered yet:</p>
   <ul style="margin-top:0.5rem; padding-left:1.2rem;">
-    <li>The app is running and accessible at localhost on the assigned port.</li>
-    <li>The Cloudflare tunnel route is saved correctly with the right subdomain and service URL.</li>
-    <li>Your domain resolves to the Cloudflare tunnel (try pinging it from another network).</li>
+    <li>In Coolify, go to your project and click "Deploy" or "Rebuild."</li>
+    <li>Wait for it to finish (usually takes a few minutes).</li>
   </ul>
 
   <div class="callout tip">
-    <h4>&#9733; General Tips</h4>
-    <p>Keep these in mind for smoother deployments:</p>
-    <ul style="margin-top:0.5rem;">
-      <li><strong>Always check ports first.</strong> Assuming 80 when Coolify assigned something else is the most common mistake.</li>
-      <li><strong>Use VS Code's Source Control panel</strong> for your day-to-day workflow — it's more intuitive than typing git commands every time.</li>
-      <li><strong>Verify before deploying.</strong> Make sure everything works locally (localhost on the actual port) before setting up Cloudflare routes.</li>
+    <h4>&#10003; Quick Reference</h4>
+    <ul>
+      <li><strong>Coolify Setup:</strong> New Project &rarr; Add Resource (GitHub App) &rarr; Deploy</li>
+      <li><strong>Cloudflare:</strong> Zero Trust Dashboard &rarr; Networking &rarr; Tunnels &rarr; Create Tunnel + Route</li>
+      <li><strong>VS Code Workflow:</strong> Source Control Panel &rarr; Init Repo &rarr; Stage Changes &rarr; Commit &rarr; Publish to GitHub</li>
     </ul>
-
   </div>
 
 </div>
+
+<script>
+  function toggleNav() {
+    document.body.classList.toggle('nav-open');
+  }
+</script>
 
 </body>
 </html>

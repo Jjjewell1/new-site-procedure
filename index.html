@@ -37,10 +37,12 @@
   /* Hero Section */
   .hero {
     text-align: center;
-    padding: 3rem 1.5rem;
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, rgba(137, 180, 250, 0.1), rgba(196, 181, 253, 0.05));
+    border-radius: 12px;
+    margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
-    margin-bottom: 2rem;
   }
 
   .hero::before {
@@ -50,186 +52,162 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(ellipse at center, rgba(137, 180, 250, 0.1) 0%, transparent 60%);
-    animation: heroGlow 8s ease-in-out infinite alternate;
-    z-index: -1;
+    background: radial-gradient(circle, rgba(137, 180, 250, 0.1) 0%, transparent 60%);
+    animation: heroGlow 4s ease-in-out infinite;
   }
 
   @keyframes heroGlow {
-    from { transform: scale(1); opacity: 0.5; }
-    to { transform: scale(1.2); opacity: 1; }
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
   }
 
   .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.3rem;
     background: linear-gradient(to right, var(--accent), #c4b5fd);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: fadeInUp 1s ease-out;
+    position: relative;
+    z-index: 1;
   }
 
   .hero p {
     font-size: 1.2rem;
     color: var(--muted);
-    animation: fadeInUp 1.5s ease-out;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
   }
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); }
-  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
-  p, li { color: var(--text); }
-
-  nav {
+  /* Top Navigation Bar */
+  nav.topbar {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.75rem 1rem;
     margin-bottom: 2rem;
-  }
-  nav h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
-  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; }
-  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); transform: scale(1.02); box-shadow: 0 2px 8px rgba(137, 180, 250, 0.2); }
-
-  code {
-    font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
-    font-size: 0.9em;
-    background: var(--code-bg);
-    border: 1px solid var(--code-border);
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    color: #f38ba8;
-  }
-
-  pre {
-    background: var(--code-bg);
-    border: 1px solid var(--code-border);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    overflow-x: auto;
-    margin-bottom: 1rem;
-    color: #f38ba8;
-    font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
-    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  pre:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(137, 180, 250, 0.1);
+  nav.topbar h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0; flex-shrink: 0; }
+
+  .nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  nav a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  nav a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+  nav a.nav-link.active { background: linear-gradient(to right, rgba(137, 180, 250, 0.2), rgba(196, 181, 253, 0.1)); color: var(--accent); border-left: 4px solid var(--accent); }
+
+  /* Hamburger Menu */
+  .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; padding: 0.5rem; background: none; border: none; z-index: 10; }
+  .hamburger span { width: 24px; height: 3px; background: var(--text); transition: transform 0.3s ease, opacity 0.3s ease; border-radius: 2px; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    nav.topbar { padding: 1rem; }
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 0 0 8px 8px; padding: 0.5rem; flex-direction: column; gap: 0.25rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+    .nav-links.open { display: flex; }
+    nav a.nav-link { text-align: left; padding: 0.4rem 0.6rem; width: 100%; margin: 0; }
+    nav a.nav-link.active { border-left: none; background: rgba(137, 180, 250, 0.15); color: var(--accent); }
   }
 
+  /* Page Title with Icon */
+  h1.page-title { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h1.page-title:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
+
+  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
+
+  p, li { color: var(--text); }
+
+  /* Code Blocks */
+  code { font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; font-size: 0.9em; background: var(--code-bg); border: 1px solid var(--code-border); padding: 0.15rem 0.4rem; border-radius: 4px; color: #f38ba8; }
+
+  pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 0.75rem 1rem; overflow-x: auto; margin-bottom: 1rem; color: #f38ba8; font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; font-size: 0.9em; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  pre:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(137, 180, 250, 0.1); }
   pre code { background: none; border: none; padding: 0; color: inherit; }
 
-  /* Code block label */
-  .code-label {
-    position: absolute;
-    top: -10px;
-    right: 10px;
-    background: linear-gradient(to right, var(--accent), #c4b5fd);
-    color: #1e1e2e;
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
+  .code-label { position: absolute; top: -10px; right: 10px; background: linear-gradient(to right, var(--accent), #c4b5fd); color: #1e1e2e; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: bold; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
 
-  .placeholder {
-    display: inline-block;
-    background: var(--placeholder-bg);
-    border: 1px dashed #c4b5fd;
-    border-radius: 4px;
-    padding: 0.1rem 0.3rem;
-    font-weight: 600;
-    color: #e8d5f7;
-    margin: 0 2px;
-  }
+  /* Callout Boxes */
+  .callout { border-left: 4px solid var(--border); padding: 1rem 1.2rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .callout:hover { transform: scale(1.01); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
 
-  /* Callout boxes */
-  .callout {
-    border-left: 4px solid var(--border);
-    padding: 1rem 1.2rem;
-    margin: 1.5rem 0;
-    border-radius: 0 6px 6px 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .callout:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  .warning {
-    background: var(--warning-bg);
-    border-left-color: var(--warning-border);
-  }
-
-  .tip {
-    background: var(--tip-bg);
-    border-left-color: var(--accent);
-  }
-
-  .success {
-    background: var(--success-bg);
-    border-left-color: var(--success-border);
-  }
+  .warning { background: var(--warning-bg); border-left-color: var(--warning-border); }
+  .tip { background: var(--tip-bg); border-left-color: var(--accent); }
+  .success { background: var(--success-bg); border-left-color: var(--success-border); }
 
   .callout h4 { font-size: 1rem; margin-bottom: 0.3rem; color: #a6e3a1; }
   .callout p, .callout ul { color: var(--text); }
 
-  .section { margin-bottom: 1.5rem; }
+  /* Placeholder */
+  .placeholder { display: inline-block; background: var(--placeholder-bg); border: 1px dashed #c4b5fd; border-radius: 4px; padding: 0.1rem 0.3rem; font-weight: 600; color: #e8d5f7; margin: 0 2px; }
 
+  /* Nav Links */
   a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
   a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
 
+  /* Badge */
   .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
-
-  .hero-icon { margin-right: 0.5rem; }
 </style>
 </head>
 <body>
 
-<h1 class="hero">New Site Procedure</h1>
-<p>Your personal reference guide for building and deploying sites with <code>Ollama</code>, <code>Cline</code>, <code>GitHub</code>, <code>Coolify</code>, and <code>Cloudflare Tunnels</code>.</p>
-
-<nav>
-  <h3>Navigation</h3>
-  <a href="index.html" class="active">Home</a>
-  <a href="01-setup.html">Setup</a>
-  <a href="02-coding.html">Coding</a>
-  <a href="03-github.html">GitHub</a>
-  <a href="04-deploy.html">Deploy</a>
-  <a href="05-troubleshooting.html">Troubleshooting</a>
-</nav>
-
-<div class="section">
-  <h2>Your Stack</h2>
-  <p>This guide covers the full workflow from idea to live site:</p>
-  <ul style="margin-top: 0.75rem; padding-left: 1.2rem;">
-    <li><strong>Ollama</strong> — runs local AI models on your machine.</li>
-    <li><strong>Cline</strong> — VS Code extension that uses Ollama to write code for you.</li>
-    <li><strong>GitHub</strong> — version control, repo management, and collaboration.</li>
-    <li><strong>Coolify</strong> — self-hosted app/platform manager (deploy your static site here).</li>
-    <li><strong>Cloudflare Tunnels</strong> — expose your Coolify-deployed site to the internet securely.</li>
-  </ul>
-
-  <h2>Quick Links</h2>
-  <p>Pick a page below to get started:</p>
-  <div style="margin-top: 0.5rem;">
-    <a href="01-setup.html" class="nav-link">Setup Environment</a>
-    <a href="03-github.html" class="nav-link">GitHub Workflow</a>
-    <a href="04-deploy.html" class="nav-link">Deploy to Coolify</a>
-  </div>
+<!-- Hero Section -->
+<div class="hero">
+  <h1>New Site Procedure</h1>
+  <p>A step-by-step guide to building and deploying your first web application.</p>
 </div>
 
+<!-- Top Navigation Bar -->
+<nav class="topbar">
+  <button class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu">
+    <span></span><span></span><span></span>
+  </button>
+  <h3>Navigation</h3>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="01-setup.html">Setup</a>
+    <a href="02-coding.html">Coding</a>
+    <a href="03-github.html">GitHub</a>
+    <a href="04-deploy.html">Deploy</a>
+    <a href="05-troubleshooting.html">Troubleshooting</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content">
+  <!-- Page: Setup Environment -->
+  <h1 class="page-title"><span style="font-size:1.5em;">&#127760;</span> Setup Environment</h1>
+  <p>Install the tools you need before writing a single line of code.</p>
+
+  <div class="section">
+    <h2><span style="font-size:1.3em;">&#9881;</span> Install Ollama</h2>
+    <p>Ollama downloads and runs AI models locally on your machine.</p>
+    <pre><code class="bash"># macOS / Linux — run this in Terminal
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Windows — download from ollama.com/download</code></pre>
+    <div class="callout tip">
+      <h4>&#9733; Tip</h4>
+      <p>This is a one-time install. After that, you can pull models anytime.</p>
+    </div>
+
+    <h2><span style="font-size:1.3em;">&#128187;</span> Pull a Model</h2>
+    <pre><code class="bash">ollama pull llama3.2</code></pre>
+    <p>This downloads the model (~4 GB). It will be cached on disk and reused next time.</p>
+
+    <h2><span style="font-size:1.3em;">&#9889;</span> Install Cline for VS Code</h2>
+    <pre><code class="bash"># In VS Code, open the Extensions view (Ctrl+Shift+X) and search "Cline"</code></pre>
+    <p>Install the extension. After install, you can start a chat with Cline to begin coding.</p>
+
+  </div>
+
+</div>
+
+<script>function toggleNav() { var links = document.querySelector('.nav-links'); if (links) links.classList.toggle('open'); }</script>
 </body>
 </html>

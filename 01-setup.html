@@ -36,9 +36,6 @@
 
   h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
   h1:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
-  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
-  p, li { color: var(--text); }
 
   nav {
     background: var(--surface);
@@ -172,5 +169,6 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 </div>
 
+<script>function toggleNav() { var links = document.querySelector('.nav-links'); if (links) links.classList.toggle('open'); }</script>
 </body>
 </html>
