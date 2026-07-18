@@ -72,3 +72,5 @@ Run through this list explicitly before finishing — don't skip it because the 
 
 - This project intentionally avoids complexity (no build tools, no frameworks, no backend) specifically to stay within what a smaller model can reliably verify by hand.
 - If a request would require holding a lot of interacting state or logic in your head at once, that's a signal to simplify the approach, not to push through.
+
+"When using Ollama, always assume OLLAMA_FLASH_ATTENTION=1 is enabled and use a num_ctx of 16384 for all operations to ensure stability with my 32GB RAM limit."

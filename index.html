@@ -14,6 +14,12 @@
     --placeholder-bg: rgba(168, 85, 247, 0.15);
     --code-bg: #181825;
     --code-border: #3d3f5a;
+    --warning-bg: rgba(239, 86, 86, 0.1);
+    --warning-border: #f38ba8;
+    --tip-bg: rgba(137, 180, 250, 0.1);
+    --tip-border: #89b4fa;
+    --success-bg: rgba(168, 85, 247, 0.1);
+    --success-border: #c4b5fd;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,8 +34,56 @@
     padding: 2rem 1.5rem;
   }
 
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(137, 180, 250, 0.1) 0%, transparent 60%);
+    animation: heroGlow 8s ease-in-out infinite alternate;
+    z-index: -1;
+  }
+
+  @keyframes heroGlow {
+    from { transform: scale(1); opacity: 0.5; }
+    to { transform: scale(1.2); opacity: 1; }
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, var(--accent), #c4b5fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    animation: fadeInUp 1.5s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); }
-  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; }
+  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
   p, li { color: var(--text); }
 
   nav {
@@ -40,8 +94,8 @@
     margin-bottom: 2rem;
   }
   nav h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
-  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; }
-  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); }
+  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; }
+  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); transform: scale(1.02); box-shadow: 0 2px 8px rgba(137, 180, 250, 0.2); }
 
   code {
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
@@ -63,9 +117,31 @@
     color: #f38ba8;
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
     font-size: 0.9em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  pre:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(137, 180, 250, 0.1);
   }
 
   pre code { background: none; border: none; padding: 0; color: inherit; }
+
+  /* Code block label */
+  .code-label {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: linear-gradient(to right, var(--accent), #c4b5fd);
+    color: #1e1e2e;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 
   .placeholder {
     display: inline-block;
@@ -78,22 +154,56 @@
     margin: 0 2px;
   }
 
+  /* Callout boxes */
+  .callout {
+    border-left: 4px solid var(--border);
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .callout:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .warning {
+    background: var(--warning-bg);
+    border-left-color: var(--warning-border);
+  }
+
+  .tip {
+    background: var(--tip-bg);
+    border-left-color: var(--accent);
+  }
+
+  .success {
+    background: var(--success-bg);
+    border-left-color: var(--success-border);
+  }
+
+  .callout h4 { font-size: 1rem; margin-bottom: 0.3rem; color: #a6e3a1; }
+  .callout p, .callout ul { color: var(--text); }
+
   .section { margin-bottom: 1.5rem; }
 
-  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; }
-  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; }
+  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
 
   .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
+
+  .hero-icon { margin-right: 0.5rem; }
 </style>
 </head>
 <body>
 
-<h1>New Site Procedure</h1>
-<p style="margin-bottom: 1.5rem;">Your personal reference guide for building and deploying sites with <code>Ollama</code>, <code>Cline</code>, <code>GitHub</code>, <code>Coolify</code>, and <code>Cloudflare Tunnels</code>.</p>
+<h1 class="hero">New Site Procedure</h1>
+<p>Your personal reference guide for building and deploying sites with <code>Ollama</code>, <code>Cline</code>, <code>GitHub</code>, <code>Coolify</code>, and <code>Cloudflare Tunnels</code>.</p>
 
 <nav>
   <h3>Navigation</h3>
-  <a href="index.html">Home</a>
+  <a href="index.html" class="active">Home</a>
   <a href="01-setup.html">Setup</a>
   <a href="02-coding.html">Coding</a>
   <a href="03-github.html">GitHub</a>

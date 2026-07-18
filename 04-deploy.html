@@ -14,6 +14,12 @@
     --placeholder-bg: rgba(168, 85, 247, 0.15);
     --code-bg: #181825;
     --code-border: #3d3f5a;
+    --warning-bg: rgba(239, 86, 86, 0.1);
+    --warning-border: #f38ba8;
+    --tip-bg: rgba(137, 180, 250, 0.1);
+    --tip-border: #89b4fa;
+    --success-bg: rgba(168, 85, 247, 0.1);
+    --success-border: #c4b5fd;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,8 +34,10 @@
     padding: 2rem 1.5rem;
   }
 
-  h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); }
-  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; }
+  h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h1:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
+  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
   p, li { color: var(--text); }
 
   nav {
@@ -40,8 +48,8 @@
     margin-bottom: 2rem;
   }
   nav h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
-  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; }
-  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); }
+  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; }
+  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); transform: scale(1.02); box-shadow: 0 2px 8px rgba(137, 180, 250, 0.2); }
 
   code {
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
@@ -63,9 +71,30 @@
     color: #f38ba8;
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
     font-size: 0.9em;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  pre:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2), 0 0 20px rgba(137, 180, 250, 0.1);
   }
 
   pre code { background: none; border: none; padding: 0; color: inherit; }
+
+  .code-label {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: linear-gradient(to right, var(--accent), #c4b5fd);
+    color: #1e1e2e;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
 
   .placeholder {
     display: inline-block;
@@ -78,18 +107,38 @@
     margin: 0 2px;
   }
 
+  .callout {
+    border-left: 4px solid var(--border);
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .callout:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .warning { background: var(--warning-bg); border-left-color: var(--warning-border); }
+  .tip { background: var(--tip-bg); border-left-color: var(--accent); }
+  .success { background: var(--success-bg); border-left-color: var(--success-border); }
+
+  .callout h4 { font-size: 1rem; margin-bottom: 0.3rem; color: #a6e3a1; }
+  .callout p, .callout ul { color: var(--text); }
+
   .section { margin-bottom: 1.5rem; }
 
-  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; }
-  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; }
+  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
 
   .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
 </style>
 </head>
 <body>
 
-<h1>Deploy with Coolify & Cloudflare Tunnels</h1>
-<p style="margin-bottom: 1.5rem;">Push your static site to a GitHub repo, then deploy and expose it via Coolify + Cloudflare.</p>
+<h1><span style="font-size:1.5em;">&#127910;</span> Deploy with Coolify & Cloudflare</h1>
+<p>Push your static site to a GitHub repo, then deploy and expose it via Coolify + Cloudflare Tunnels.</p>
 
 <nav>
   <h3>Navigation</h3>
@@ -102,50 +151,52 @@
 </nav>
 
 <div class="section">
-  <h2>Step 1: Create a New Resource in Coolify</h2>
-  <p>In your Coolify dashboard, create a new resource and point it at your GitHub repo:</p>
-  <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
-    <li><strong class="placeholder">Resource Name</strong>: e.g., <code>[YOUR_COOLIFY_PROJECT_NAME]</code></li>
-    <li><strong>Repository URL</strong>: <code>https://github.com/Jjjewell1/coolify-core.git</code></li>
-    <li><strong>Branch</strong>: <code>main</code></li>
-  </ul>
-
-  <h2>Step 2: Configure Build & Deploy Settings for a Static Site</h2>
-  <p>Since this is a static site (plain HTML/CSS/JS), configure the build step to simply copy files:</p>
-  <pre><code>Build Command:   cp -R /source/* /deploy/</code></pre>
-  <pre><code>Deploy Path:     /var/www/deploy</code></pre>
-  <pre><code>Root Directory:  . (or the project folder)</code></pre>
-
-  <h2>Step 3: Set Up a Cloudflare Tunnel to Expose It</h2>
-  <p>Create a new tunnel in your Cloudflare Dashboard:</p>
-  <ol style="margin-top: 0.5rem; padding-left: 1.2rem;">
-    <li>Navigate to <code>Cloudflare Zero Trust > Networking > Tunnels</code></li>
-    <li>Create a new tunnel and point it at your Coolify resource URL</li>
-    <li>Note the <strong>Tunnel ID</strong> (e.g., <code>tx1234abcd</code>) — you'll need this for DNS records</li>
+  <h2><span style="font-size:1.3em;">&#9881;</span> Step 1 — Create a New Project in Coolify</h2>
+  <p>In your Coolify dashboard, start with a new project:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>Click <strong>"New Project"</strong>.</li>
+    <li>Name it (e.g., "Jewel Core Newsite").</li>
+    <li>Inside the project, click <strong>"Add New Resource"</strong>.</li>
   </ol>
 
-  <h2>Step 4: Point Your Domain at the Tunnel</h2>
-  <p>Add a CNAME record in Cloudflare DNS to map your domain to the tunnel:</p>
-  <pre><code>Name:    newsite
-Type:     CNAME
-Target:   tx1234abcd (your tunnel ID)
-TTL:      Auto</code></pre>
+  <h2><span style="font-size:1.3em;">&#9881;</span> Step 2 — Choose a GitHub App Source for the Resource</h2>
+  <p>Select your resource source:</p>
+  <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>Pick the <strong>GitHub App</strong> option.</li>
+    <li>From the list, select your repo (e.g., "coolify-core").</li>
+    <li style="color:#f38ba8;"><em>Note:</em> This requires that you've already authorized the Coolify GitHub App on GitHub — a one-time setup if this is your first time.</li>
+  </ul>
 
-  <h2>Step 5: Verify Everything Is Working</h2>
-  <p>After the first deployment, visit:</p>
-  <pre><code>https://newsite.jewellcore.com</code></pre>
-  <p>You should see your site rendered correctly.</p>
+  <h2><span style="font-size:1.3em;">&#9881;</span> Step 3 — Deploy the Resource & Check Its Port</h2>
+  <p>After deploying, you need to find what port Coolify actually assigned:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>In your resource settings in Coolify, check the <strong>internal port</strong>.</li>
+    <li>This is <strong>often NOT port 80</strong> — it could be something else entirely.</li>
+    <li>Write that number down; you'll need it for Cloudflare next.</li>
+  </ol>
 
-  <div class="section">
-    <h2>Quick Checklist</h2>
-    <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
-      <li>Create Coolify resource at <code>[YOUR_COOLIFY_PROJECT_NAME]</code></li>
-      <li>Set build command to copy static files</li>
-      <li>Create Cloudflare Tunnel pointing at the Coolify URL</li>
-      <li>Add CNAME record: <code>newsite → tx1234abcd</code></li>
-      <li>Visit <code>https://newsite.jewellcore.com</code> to verify</li>
-    </ul>
+  <div class="callout warning">
+    <h4>&#9888; Warning: Port Mismatch Is the #1 Mistake</h4>
+    <p>The most common error in this whole process is assuming the app runs on port 80. Coolify assigns its own internal port, and it's almost always something other than 80. If your Cloudflare tunnel doesn't reach the app after setup, you likely pointed at port 80 when you should have used the actual assigned port.</p>
   </div>
+
+  <h2><span style="font-size:1.3em;">&#9881;</span> Step 4 — Set Up a Cloudflare Tunnel</h2>
+  <p>In your Cloudflare Dashboard:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>Navigate to <strong>Networking &rarr; Tunnels</strong>.</li>
+    <li>If this machine doesn't have a tunnel yet, create one (it runs the cloudflared command on your host once).</li>
+  </ol>
+
+  <h2><span style="font-size:1.3em;">&#9881;</span> Step 5 — Add Your Domain as a Route Inside the Tunnel</h2>
+  <p>Inside the tunnel, add a public hostname/route:</p>
+  <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li><strong>Subdomain</strong>: e.g., "newsite" (so full domain becomes newsite.jewellcore.com).</li>
+    <li><strong>Service URL</strong>: <code style="display:inline-block;background:var(--code-bg);border-radius:4px;padding:0.15rem 0.4rem;">http://localhost:PORT</code> — using the actual port from Step 3, not 80.</li>
+  </ul>
+
+  <h2><span style="font-size:1.3em;">&#9881;</span> Step 6 — Done & Verify</h2>
+  <p>Once saved, your domain resolves directly to the app with no manual DNS A record needed.</p>
+  <pre><code>https://newsite.jewellcore.com</code></pre>
 
 </div>
 

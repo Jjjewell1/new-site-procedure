@@ -14,6 +14,12 @@
     --placeholder-bg: rgba(168, 85, 247, 0.15);
     --code-bg: #181825;
     --code-border: #3d3f5a;
+    --warning-bg: rgba(239, 86, 86, 0.1);
+    --warning-border: #f38ba8;
+    --tip-bg: rgba(137, 180, 250, 0.1);
+    --tip-border: #89b4fa;
+    --success-bg: rgba(168, 85, 247, 0.1);
+    --success-border: #c4b5fd;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,8 +34,10 @@
     padding: 2rem 1.5rem;
   }
 
-  h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); }
-  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; }
+  h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h1:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
+  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
   p, li { color: var(--text); }
 
   nav {
@@ -40,8 +48,8 @@
     margin-bottom: 2rem;
   }
   nav h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
-  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; }
-  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); }
+  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; }
+  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); transform: scale(1.02); box-shadow: 0 2px 8px rgba(137, 180, 250, 0.2); }
 
   code {
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
@@ -63,9 +71,30 @@
     color: #f38ba8;
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
     font-size: 0.9em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  pre:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(137, 180, 250, 0.1);
   }
 
   pre code { background: none; border: none; padding: 0; color: inherit; }
+
+  .code-label {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: linear-gradient(to right, var(--accent), #c4b5fd);
+    color: #1e1e2e;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 
   .placeholder {
     display: inline-block;
@@ -78,18 +107,38 @@
     margin: 0 2px;
   }
 
+  .callout {
+    border-left: 4px solid var(--border);
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .callout:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .warning { background: var(--warning-bg); border-left-color: var(--warning-border); }
+  .tip { background: var(--tip-bg); border-left-color: var(--accent); }
+  .success { background: var(--success-bg); border-left-color: var(--success-border); }
+
+  .callout h4 { font-size: 1rem; margin-bottom: 0.3rem; color: #a6e3a1; }
+  .callout p, .callout ul { color: var(--text); }
+
   .section { margin-bottom: 1.5rem; }
 
-  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; }
-  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; }
+  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
 
   .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
 </style>
 </head>
 <body>
 
-<h1>GitHub Workflow</h1>
-<p style="margin-bottom: 1.5rem;">Turn your local project into a GitHub repo and push it to the remote.</p>
+<h1><span style="font-size:1.5em;">&#9838;</span> GitHub Workflow</h1>
+<p>VS Code's built-in Source Control panel handles everything — no terminal needed for day-to-day work.</p>
 
 <nav>
   <h3>Navigation</h3>
@@ -102,51 +151,43 @@
 </nav>
 
 <div class="section">
-  <h2>Your Example Repo</h2>
-  <p>This walkthrough uses the following repository:</p>
-  <pre><code>https://github.com/Jjjewell1/coolify-core.git</code></pre>
+  <h2><span style="font-size:1.3em;">&#9838;</span> First Time — Initialize the Repo</h2>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>In VS Code, click the <strong>Source Control icon</strong> in the left sidebar (the branch symbol).</li>
+    <li>If no repo exists yet, you'll see an empty panel — click <strong>"Initialize Repository"</strong>.</li>
+  </ol>
 
-  <h2>Step 1: Initialize a Git Repository</h2>
-  <p>If you haven't already, create an empty git repo in your project folder:</p>
-  <pre><code>git init</code></pre>
-  <p>This creates the <code>.git</code> directory and starts tracking changes.</p>
+  <h2><span style="font-size:1.3em;">&#9838;</span> Stage & Commit</h2>
+  <p>Your changes will appear in the Source Control panel:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li><strong>Stage all changes:</strong> click the "Add All" button (or press Ctrl+Shift+A).</li>
+    <li>Type a commit message in the input field at the top of the panel.</li>
+    <li>Click the green checkmark icon to commit your changes.</li>
+  </ol>
 
-  <h2>Step 2: Add Files to Track</h2>
-  <p>Stage all your project files for the first commit:</p>
-  <pre><code>git add .</code></pre>
-  <p>This adds every tracked file. For a large initial commit, you can exclude things like build artifacts or node_modules with:</p>
-  <pre><code>git add --exclude='node_modules' --exclude='.DS_Store'</code></pre>
+  <h2><span style="font-size:1.3em;">&#9838;</span> Publish Branch / Push to GitHub</h2>
+  <p>This is where your site goes live on GitHub:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>In the Source Control panel, click the <strong>"Publish Branch" / "Publish to GitHub"</strong> button.</li>
+    <li>If you're not signed in yet, VS Code will prompt you to sign into your GitHub account.</li>
+    <li>You'll be asked whether to create a new repository — choose <em>public</em> or <em>private</em>.</li>
+    <li>VS Code handles everything: it creates the repo on GitHub, adds the remote URL, and pushes your code in one step.</li>
+  </ol>
 
-  <h2>Step 3: Make Your First Commit</h2>
-  <p>Create your initial commit message — keep it descriptive but concise:</p>
-  <pre><code>git commit -m "Initial project setup"</code></pre>
+  <h2><span style="font-size:1.3em;">&#9838;</span> Push Updates After Initial Publish</h2>
+  <p>After you've published once, any future changes follow the same pattern:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>Stage your new or changed files (click "Add All").</li>
+    <li>Type a commit message.</li>
+    <li>Click the checkmark to commit.</li>
+    <li>Then click <strong>"Sync Changes"</strong> or the push button in Source Control to send it up to GitHub.</li>
+  </ol>
 
-  <h2>Step 4: Connect to the Remote Repository</h2>
-  <p>Tell git where your GitHub repo is by adding a remote origin:</p>
-  <pre><code>git remote add origin https://github.com/Jjjewell1/coolify-core.git</code></pre>
-
-  <h2>Step 5: Push to GitHub</h2>
-  <p>Send your code to the remote for the first time:</p>
-  <pre><code>git push -u origin main</code></pre>
-  <p>The <code>-u</code> flag creates an upstream tracking reference so future pushes become simple.</p>
-
-  <h2>Ahead — Pull Before Pushing Later</h2>
-  <p>If you've made changes on a branch and want to push them, make sure your local branch is up to date with the remote first:</p>
-  <pre><code>git fetch origin</code></pre>
-  <pre><code>git pull origin main</code></pre>
-
-  <div class="section">
-    <h2>Quick Checklist</h2>
-    <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
-      <li>Run <code>git init</code> to create a local repo</li>
-      <li>Add all files with <code>git add .</code></li>
-      <li>Commit with a clear message using <code>git commit -m "..."</code></li>
-      <li>Connect remote origin: <code>git remote add origin https://github.com/Jjjewell1/coolify-core.git</code></li>
-      <li>Push to GitHub: <code>git push -u origin main</code></li>
-    </ul>
+  <div class="callout tip">
+    <h4>&#9733; Terminal equivalent (for reference only)</h4>
+    <p>If you ever want to use the terminal instead, these commands do exactly what the VS Code UI does:</p>
+    <pre><code style="display:block;margin-top:0.5rem;">git init
+git add .
+git commit -m "your message"
+git push</code></pre>
   </div>
-
-</div>
-
-</body>
-</html>

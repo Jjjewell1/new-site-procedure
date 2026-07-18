@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Troubleshooting</title>
+<title>Troubleshooting & Tips</title>
 <style>
   :root {
     --bg: #1e1e2e;
@@ -14,8 +14,12 @@
     --placeholder-bg: rgba(168, 85, 247, 0.15);
     --code-bg: #181825;
     --code-border: #3d3f5a;
-    --issue-bg: rgba(239, 86, 86, 0.1);
-    --fixed-bg: rgba(167, 196, 245, 0.1);
+    --warning-bg: rgba(239, 86, 86, 0.1);
+    --warning-border: #f38ba8;
+    --tip-bg: rgba(137, 180, 250, 0.1);
+    --tip-border: #89b4fa;
+    --success-bg: rgba(168, 85, 247, 0.1);
+    --success-border: #c4b5fd;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,8 +34,10 @@
     padding: 2rem 1.5rem;
   }
 
-  h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); }
-  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; }
+  h1 { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h1:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
+  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
   p, li { color: var(--text); }
 
   nav {
@@ -42,8 +48,8 @@
     margin-bottom: 2rem;
   }
   nav h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
-  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; }
-  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); }
+  nav a { display: block; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; }
+  nav a:hover, nav a.active { background: rgba(137, 180, 250, 0.15); color: var(--accent); transform: scale(1.02); box-shadow: 0 2px 8px rgba(137, 180, 250, 0.2); }
 
   code {
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
@@ -65,9 +71,30 @@
     color: #f38ba8;
     font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
     font-size: 0.9em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  pre:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(137, 180, 250, 0.1);
   }
 
   pre code { background: none; border: none; padding: 0; color: inherit; }
+
+  .code-label {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: linear-gradient(to right, var(--accent), #c4b5fd);
+    color: #1e1e2e;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 
   .placeholder {
     display: inline-block;
@@ -80,31 +107,38 @@
     margin: 0 2px;
   }
 
-  .section { margin-bottom: 1.5rem; }
-
-  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; }
-  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; }
-
-  .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
-
-  .issue-card {
-    border-left: 4px solid var(--accent);
+  .callout {
+    border-left: 4px solid var(--border);
     padding: 1rem 1.2rem;
-    margin-bottom: 1.2rem;
-    background: var(--issue-bg);
+    margin: 1.5rem 0;
     border-radius: 0 6px 6px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .issue-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; color: #f38ba8; }
-  .issue-card p, .issue-card li { color: var(--text); }
+  .callout:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
 
-  ul { padding-left: 1.2rem; }
+  .warning { background: var(--warning-bg); border-left-color: var(--warning-border); }
+  .tip { background: var(--tip-bg); border-left-color: var(--accent); }
+  .success { background: var(--success-bg); border-left-color: var(--success-border); }
+
+  .callout h4 { font-size: 1rem; margin-bottom: 0.3rem; color: #a6e3a1; }
+  .callout p, .callout ul { color: var(--text); }
+
+  .section { margin-bottom: 1.5rem; }
+
+  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+
+  .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
 </style>
 </head>
 <body>
 
-<h1>Troubleshooting Checklist</h1>
-<p style="margin-bottom: 1.5rem;">Common issues and their fixes — add new entries as you encounter them.</p>
+<h1><span style="font-size:1.5em;">&#9888;</span> Troubleshooting & Tips</h1>
+<p>Common issues and quick fixes to keep your workflow running smoothly.</p>
 
 <nav>
   <h3>Navigation</h3>
@@ -117,55 +151,46 @@
 </nav>
 
 <div class="section">
-  <h2>Issue: Site Not Loading — Check Cloudflare Tunnel Status</h2>
-  <div class="issue-card">
-    <p><strong>Symptom:</strong> You visit <code>https://newsite.jewellcore.com</code> and get a connection error or blank page.</p>
-    <ul style="margin-top: 0.6rem;">
-      <li>Open the Cloudflare Dashboard → Zero Trust → Networking → Tunnels</li>
-      <li>Check that your tunnel is <strong class="placeholder">Running</strong></li>
-      <li>If it shows as disconnected, restart the tunnel or check Coolify logs for errors</li>
+  <h2><span style="font-size:1.3em;">&#9888;</span> Coolify Won't Connect to Your Repo</h2>
+  <p>This typically happens if the GitHub App hasn't been authorized yet:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>Go to your GitHub account settings.</li>
+    <li>Navigate to Apps &rarr; GitHub Apps.</li>
+    <li>Find the Coolify app and click "Install" on it for your organization or account.</li>
+  </ol>
+
+  <h2><span style="font-size:1.3em;">&#9888;</span> Cloudflare Tunnel Can't Reach Your App</h2>
+  <p>This is almost always the port mismatch issue:</p>
+  <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>Check what port Coolify actually assigned (see Step 3 in the deploy guide).</li>
+    <li>Make sure your Cloudflare tunnel service URL uses that actual port, not 80.</li>
+  </ul>
+
+  <h2><span style="font-size:1.3em;">&#9888;</span> VS Code Source Control Panel Looks Empty</h2>
+  <p>If the panel shows nothing after you've made changes:</p>
+  <ol style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>Make sure your files are actually saved.</li>
+    <li>The Source Control icon in the sidebar should show changed files if there's anything to commit.</li>
+  </ol>
+
+  <h2><span style="font-size:1.3em;">&#9888;</span> Your Site Isn't Loading After Deploy</h2>
+  <p>A few things to check:</p>
+  <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+    <li>The app is running and accessible at localhost on the assigned port.</li>
+    <li>The Cloudflare tunnel route is saved correctly with the right subdomain and service URL.</li>
+    <li>Your domain resolves to the Cloudflare tunnel (try pinging it from another network).</li>
+  </ul>
+
+  <div class="callout tip">
+    <h4>&#9733; General Tips</h4>
+    <p>Keep these in mind for smoother deployments:</p>
+    <ul style="margin-top:0.5rem;">
+      <li><strong>Always check ports first.</strong> Assuming 80 when Coolify assigned something else is the most common mistake.</li>
+      <li><strong>Use VS Code's Source Control panel</strong> for your day-to-day workflow — it's more intuitive than typing git commands every time.</li>
+      <li><strong>Verify before deploying.</strong> Make sure everything works locally (localhost on the actual port) before setting up Cloudflare routes.</li>
     </ul>
+
   </div>
-
-  <h2>Issue: Push Rejected — Pull First</h2>
-  <div class="issue-card">
-    <p><strong>Symptom:</strong> <code>git push origin main</code> fails with a non-fast-forward error.</p>
-    <ul style="margin-top: 0.6rem;">
-      <li>This usually means the remote has new commits you haven't pulled</li>
-      <li>Run <pre><code>git fetch origin</code></pre> first, then <pre><code>git pull origin main</code></pre></li>
-      <li>If you intentionally want to force-push, use <pre><code>git push --force-with-lease origin main</code></pre> (safer than plain <code>--force</code>)</li>
-    </ul>
-  </div>
-
-  <h2>Issue: Ollama Not Responding — Restart the Service</h2>
-  <div class="issue-card">
-    <p><strong>Symptom:</strong> Cline can't reach the local model endpoint.</p>
-    <ul style="margin-top: 0.6rem;">
-      <li>Check if Ollama is running: open a terminal and run <pre><code>ollama list</code></pre></li>
-      <li>If nothing shows up, restart it with <pre><code>ollama serve</code></pre></li>
-      <li>Verify the model loads by running <pre><code>ollama pull [model-name]</code></pre> if needed</li>
-    </ul>
-  </div>
-
-  <h2>Issue: Coolify Build Fails — Check Logs</h2>
-  <div class="issue-card">
-    <p><strong>Symptom:</strong> The deployment in Coolify reports a build error.</p>
-    <ul style="margin-top: 0.6rem;">
-      <li>Go to the resource in Coolify → Logs tab</li>
-      <li>Look for specific errors (missing files, syntax issues, permission problems)</li>
-      <li>If it's a file copy issue, verify your build command matches the actual directory structure</li>
-    </ul>
-  </div>
-
-  <h2>Add Your Own Entries Here</h2>
-  <p style="margin-top: 1.5rem;">As you encounter new issues, add them below in the same format:</p>
-  <pre><code>[Issue Title]
-
-Symptom: ...
-
-Fix steps:
-1. ...
-2. ...</code></pre>
 
 </div>
 
