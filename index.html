@@ -80,38 +80,76 @@
     z-index: 1;
   }
 
-  /* Top Navigation Bar */
-  nav.topbar {
+  /* Page Title with Icon */
+  h1.page-title { font-size: 2rem; margin-bottom: 0.3rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h1.page-title:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
+
+  h2 { font-size: 1.4rem; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #a6e3a1; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  h2:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(137, 180, 250, 0.2); }
+
+  p, li { color: var(--text); }
+
+  /* Code Blocks */
+  code { font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; font-size: 0.9em; background: var(--code-bg); border: 1px solid var(--code-border); padding: 0.15rem 0.4rem; border-radius: 4px; color: #f38ba8; }
+
+  pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 0.75rem 1rem; overflow-x: auto; margin-bottom: 1rem; color: #f38ba8; font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; font-size: 0.9em; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  pre:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(137, 180, 250, 0.1); }
+  pre code { background: none; border: none; padding: 0; color: inherit; }
+
+  .code-label { position: absolute; top: -10px; right: 10px; background: linear-gradient(to right, var(--accent), #c4b5fd); color: #1e1e2e; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: bold; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+
+  /* Callout Boxes */
+  .callout { border-left: 4px solid var(--border); padding: 1rem 1.2rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .callout:hover { transform: scale(1.01); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+
+  .warning { background: var(--warning-bg); border-left-color: var(--warning-border); }
+  .tip { background: var(--tip-bg); border-left-color: var(--accent); }
+  .success { background: var(--success-bg); border-left-color: var(--success-border); }
+
+  .callout h4 { font-size: 1rem; margin-bottom: 0.3rem; color: #a6e3a1; }
+  .callout p, .callout ul { color: var(--text); }
+
+  /* Placeholder */
+  .placeholder { display: inline-block; background: var(--placeholder-bg); border: 1px dashed #c4b5fd; border-radius: 4px; padding: 0.1rem 0.3rem; font-weight: 600; color: #e8d5f7; margin: 0 2px; }
+
+  /* Badge */
+  .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
+
+  /* Left Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100vh;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid var(--border);
+    padding-top: 1rem;
+    z-index: 100;
+    transition: transform 0.3s ease;
   }
 
-  nav.topbar h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0; flex-shrink: 0; }
+  .sidebar.hidden {
+    transform: translateX(-100%);
+  }
 
-  .nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  nav a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-  nav a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
-  nav a.nav-link.active { background: linear-gradient(to right, rgba(137, 180, 250, 0.2), rgba(196, 181, 253, 0.1)); color: var(--accent); border-left: 4px solid var(--accent); }
+  .sidebar-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 24px;
+    z-index: 200;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.85em;
+    transition: background 0.3s ease;
+  }
 
-  /* Hamburger Menu */
-  .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; padding: 0.5rem; background: none; border: none; z-index: 10; }
-  .hamburger span { width: 24px; height: 3px; background: var(--text); transition: transform 0.3s ease, opacity 0.3s ease; border-radius: 2px; }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .hamburger { display: flex; }
-    nav.topbar { padding: 1rem; }
-    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 0 0 8px 8px; padding: 0.5rem; flex-direction: column; gap: 0.25rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
-    .nav-links.open { display: flex; }
-    nav a.nav-link { text-align: left; padding: 0.4rem 0.6rem; width: 100%; margin: 0; }
-    nav a.nav-link.active { border-left: none; background: rgba(137, 180, 250, 0.15); color: var(--accent); }
+  .sidebar-toggle:hover {
+    background: rgba(137, 180, 250, 0.1);
   }
 
   /* Page Title with Icon */
@@ -146,37 +184,44 @@
   /* Placeholder */
   .placeholder { display: inline-block; background: var(--placeholder-bg); border: 1px dashed #c4b5fd; border-radius: 4px; padding: 0.1rem 0.3rem; font-weight: 600; color: #e8d5f7; margin: 0 2px; }
 
-  /* Nav Links */
-  a.nav-link { display: inline-block; padding: 0.3rem 0.6rem; border-radius: 4px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 0.9em; margin-right: 0.5rem; margin-bottom: 0.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-  a.nav-link:hover { background: rgba(137, 180, 250, 0.15); color: var(--accent); text-decoration: none; transform: scale(1.03); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
-
   /* Badge */
   .badge { display: inline-block; font-size: 0.75em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(239, 86, 86, 0.15); color: #f38ba8; }
 </style>
 </head>
 <body>
 
+<!-- Left Sidebar -->
+<nav class="sidebar">
+  <div style="padding: 1rem;">
+    <h2 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 0.5rem; text-align: center;">v3</h2>
+  </div>
+  <ul style="list-style: none; padding-left: 0;">
+    <li><a href="index.html" class="nav-link active">Home</a></li>
+    <li><a href="01-setup.html" class="nav-link">Setup</a></li>
+    <li><a href="02-coding.html" class="nav-link">Coding</a></li>
+    <li><a href="03-github.html" class="nav-link">GitHub</a></li>
+    <li><a href="04-deploy.html" class="nav-link">Deploy</a></li>
+    <li><a href="05-troubleshooting.html" class="nav-link">Troubleshooting</a></li>
+  </ul>
+</nav>
+
+<!-- Toggle Button -->
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+<script>
+function toggleSidebar() {
+  var sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('hidden');
+  }
+}
+</script>
+
 <!-- Hero Section -->
 <div class="hero">
-  <h1>v3New Site Procedure</h1>
+  <h1>v3 New Site Procedure</h1>
   <p>A step-by-step guide to building and deploying your first web application.</p>
 </div>
-
-<!-- Top Navigation Bar -->
-<nav class="topbar">
-  <button class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu">
-    <span></span><span></span><span></span>
-  </button>
-  <h3>Navigation</h3>
-  <div class="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="01-setup.html">Setup</a>
-    <a href="02-coding.html">Coding</a>
-    <a href="03-github.html">GitHub</a>
-    <a href="04-deploy.html">Deploy</a>
-    <a href="05-troubleshooting.html">Troubleshooting</a>
-  </div>
-</nav>
 
 <!-- Main Content -->
 <div class="main-content">
@@ -208,6 +253,8 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 </div>
 
-<script>function toggleNav() { var links = document.querySelector('.nav-links'); if (links) links.classList.toggle('open'); }</script>
+<script>
+// No navigation toggle needed - sidebar is always visible on desktop by default
+</script>
 </body>
 </html>
